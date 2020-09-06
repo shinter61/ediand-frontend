@@ -1,7 +1,17 @@
 version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-workflows:
-  node-tests:
-    jobs:
-      - node/test
+
+jobs:
+  deploy:
+    working_directory: ~/ediant-frontend
+    docker:
+      - image: circleci/node:12.14.1
+        environment:
+          TZ: Asia/Tokyo
+    steps:
+      - checkout
+      - run:
+          name: Install package
+          command: yarn
+      - run
+          name: Build frontend
+          command: yarn prod
