@@ -1,0 +1,31 @@
+version: 2.1
+
+orbs:
+  aws-s3: circleci/aws-s3@1.0.11
+
+jobs:
+  deploy:
+    working_directory: ~/ediant-frontend
+    docker:
+      - image: circleci/node:12.14.1
+        environment:
+          TZ: Asia/Tokyo
+    steps:
+      - checkout
+      - run:
+          name: Install and build
+          command: |
+            yarn
+            yarn prod
+      - aws-s3/sync:
+          from: public
+          to: 's3://ediant-frontend/'
+          overwrite: true
+
+workflows:
+  all:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master
