@@ -10,8 +10,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install package
-          command: yarn
-      - run:
-          name: Build frontend
-          command: yarn prod
+          name: Install and build
+          command: |
+            yarn
+            yarn prod
