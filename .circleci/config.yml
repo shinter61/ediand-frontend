@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  aws-s3: circleci/aws-s3
+
 jobs:
   deploy:
     working_directory: ~/ediant-frontend
@@ -14,6 +17,10 @@ jobs:
           command: |
             yarn
             yarn prod
+      - aws-s3/sync:
+          from: public
+          to: 's3://ediant-frontend/'
+          overwrite: true
 
 workflows:
   all:
