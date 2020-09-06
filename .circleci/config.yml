@@ -26,3 +26,6 @@ workflows:
   all:
     jobs:
       - deploy
+          filteres:
+            branches:
+              only: master
