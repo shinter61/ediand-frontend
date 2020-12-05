@@ -6,6 +6,7 @@ export default class Top extends React.Component {
     return (
       <div>
         <p>top</p>
+        <Link to='/sign_up'>新規登録</Link>
         <Link to='/sign_in'>ログイン</Link>
       </div>
     );
