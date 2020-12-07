@@ -55,6 +55,6 @@
   },
   "scripts": {
     "dev": "ts-node server/server.ts",
-    "prod": "webpack --config webpack.config.dev.babel.ts"
+    "prod": "webpack --config webpack.config.ts"
   }
 }
