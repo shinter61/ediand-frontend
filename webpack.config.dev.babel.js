@@ -19,14 +19,14 @@ export default {
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve:{
-    extensions: ['.js','.json','.jsx']
+    extensions: ['.js', '.json', '.ts', '.tsx']
   },
   module:{
     rules:[
       {
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
         use:{
-          loader: 'babel-loader',
+          loader: 'ts-loader',
           query: {
             babelrc: false,
             presets: [
