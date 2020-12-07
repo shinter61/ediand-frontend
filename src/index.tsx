@@ -1,18 +1,15 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-import App from './App';
+import App from "./App";
 
-const render = (_App: any) =>{
-  ReactDOM.render(
-    <_App />,
-    document.getElementById('root')
-  );
+const render = (_App: React.FC) => {
+  ReactDOM.render(<_App />, document.getElementById("root"));
 };
 
-if(module.hot){
-  module.hot.accept('./App', ()=>{
-    const NextApp = require('./App').default;
+if (module.hot) {
+  module.hot.accept("./App", () => {
+    const NextApp = require("./App").default;
     render(NextApp);
   });
 }
