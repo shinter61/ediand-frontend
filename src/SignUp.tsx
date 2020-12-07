@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import client from './client';
@@ -47,7 +47,7 @@ const SignUp = () => {
   const [password, setPassword] = React.useState('');
   const [rePassword, setRePassword] = React.useState('');
 
-  const handleChangeInput = (e) => {
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === 'email')
       setEmail(value);
@@ -58,7 +58,7 @@ const SignUp = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== rePassword) { return; }

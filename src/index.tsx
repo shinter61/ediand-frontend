@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import App from './App';
 
-const render = (_App) =>{
+const render = (_App: any) =>{
   ReactDOM.render(
     <_App />,
     document.getElementById('root')
