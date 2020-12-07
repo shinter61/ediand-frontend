@@ -26,7 +26,7 @@ const FormColumn = styled.div`
   margin-bottom: 24px;
 `;
 const FormInput = styled.input`
-  width: 300px;
+  width: 100%;
   font-size: 16px;
   line-height: 24px;
 `;
