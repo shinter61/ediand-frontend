@@ -1,7 +1,7 @@
-import webpack from 'webpack';
-import path from 'path';
+import * as webpack from 'webpack';
+import * as path from 'path';
 
-export default {
+const config: webpack.Configuration = {
   mode: 'development',
   entry:[
     'webpack-hot-middleware/client',
@@ -19,29 +19,14 @@ export default {
     new webpack.HotModuleReplacementPlugin()
   ],
   resolve:{
-    extensions: ['.js','.json','.jsx']
+    extensions: ['.js', '.json', '.ts', '.tsx']
   },
   module:{
     rules:[
       {
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
         use:{
-          loader: 'babel-loader',
-          query: {
-            babelrc: false,
-            presets: [
-              '@babel/preset-env',
-              '@babel/preset-react'
-            ],
-            plugins: [
-              ['@babel/plugin-proposal-decorators', {
-                legacy: true
-              }],
-              ['@babel/plugin-proposal-class-properties', {
-                loose: true
-              }]
-            ]
-          }
+          loader: 'ts-loader',
         },
         include: path.resolve(__dirname, 'src')
       },
@@ -66,3 +51,5 @@ export default {
     ]
   }
 };
+
+export default config
