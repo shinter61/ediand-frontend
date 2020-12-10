@@ -1,5 +1,6 @@
 import * as webpack from 'webpack';
 import * as path from 'path';
+import HTMLWebpackPlugin from 'html-webpack-plugin'
 
 const config: webpack.Configuration = {
   mode: 'development',
@@ -16,7 +17,11 @@ const config: webpack.Configuration = {
     historyApiFallback: true,
   },
   plugins:[
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new HTMLWebpackPlugin({
+      template: './public/index.html',
+      favicon: './public/favicon.ico',
+    }),
   ],
   resolve:{
     extensions: ['.js', '.json', '.ts', '.tsx']
