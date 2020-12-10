@@ -7,6 +7,7 @@ const Top: React.FC = () => {
       <p>top</p>
       <Link to="/sign_up">新規登録</Link>
       <Link to="/sign_in">ログイン</Link>
+      <Link to="/counter">カウンター</Link>
     </div>
   );
 };
