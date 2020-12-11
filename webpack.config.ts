@@ -6,6 +6,7 @@ const config: webpack.Configuration = {
   mode: 'development',
   entry:[
     'webpack-hot-middleware/client',
+    './node_modules/modern-css-reset/dist/reset.css',
     path.resolve(__dirname, 'src/')
   ],
   output:{
