@@ -1,7 +1,8 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import client from "./client";
+import { signUp } from "./sessionSlice";
 
 const SignUpWrapper = styled.div`
   display: flex;
@@ -42,7 +43,15 @@ const FormSubmitButton = styled.button`
   border: 1px solid: #ff1a6f;
 `;
 
-const SignUp: React.FC = () => {
+interface signUpParams {
+  email: string;
+  password: string;
+}
+type SignUpProps = {
+  signUp: (params: signUpParams) => void;
+};
+
+const SignUp: React.FC<SignUpProps> = ({ signUp }) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [rePassword, setRePassword] = React.useState("");
@@ -64,9 +73,7 @@ const SignUp: React.FC = () => {
       return;
     }
 
-    client
-      .post("/v1/auth", { email, password })
-      .then((res) => console.log(res));
+    signUp({ email, password });
   };
   return (
     <SignUpWrapper>
@@ -116,4 +123,8 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+const mapStateToProps = (state: any) => ({});
+
+const mapDispatchToProps = { signUp };
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

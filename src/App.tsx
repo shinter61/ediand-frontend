@@ -13,6 +13,8 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
+export type AppDispatch = typeof store.dispatch;
+
 const App: React.FC = () => {
   return (
     <Provider store={store}>
