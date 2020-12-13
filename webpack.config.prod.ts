@@ -7,7 +7,6 @@ const Dotenv = require('dotenv-webpack')
 const config: webpack.Configuration = {
   mode: 'production',
   entry:[
-    'webpack-hot-middleware/client',
     './node_modules/modern-css-reset/dist/reset.css',
     path.resolve(__dirname, 'src/')
   ],
