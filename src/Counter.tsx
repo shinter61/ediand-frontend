@@ -10,7 +10,17 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = { increment, decrement };
 
-const Counter: React.FC<any> = ({ count, increment, decrement }) => {
+type CounterParams = {
+  number: number;
+};
+
+type CounterProps = {
+  count: number;
+  increment: (x: CounterParams) => void;
+  decrement: (x: CounterParams) => void;
+};
+
+const Counter: React.FC<CounterProps> = ({ count, increment, decrement }) => {
   return (
     <div>
       <p>counter</p>
