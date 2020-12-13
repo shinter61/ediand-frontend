@@ -1,6 +1,9 @@
 import * as React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { fetchCurrentUser, signOut } from "./sessionSlice";
+import { AppDispatch } from "./App";
 import todaiImage from "../public/todai.jpg";
 
 const MainWrapper = styled.div`
@@ -10,7 +13,6 @@ const MainWrapper = styled.div`
   flex-direction: column;
   background-color: #ddd;
 `;
-
 const HeaderWrapper = styled.div`
   width: 100%;
   height: 80px;
@@ -25,7 +27,6 @@ const HeaderContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
 const HeaderTitle = styled.div`
   font-size: 24px;
 `;
@@ -42,6 +43,12 @@ const HeaderLink = styled(Link)`
   &:visited {
     color: #ddd;
   }
+`;
+const HeaderSignOut = styled.div`
+  text-decoration: none;
+  margin-right: 16px;
+  font-size: 16px;
+  font-weight: bold;
 `;
 const HeroImageWrapper = styled.div`
   display: flex;
@@ -91,14 +98,33 @@ const RankingLink = styled(Link)``;
 const RankingDescription = styled.div``;
 
 const Top: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, []);
+
+  const { user } = useSelector((state: any) => {
+    return {
+      user: state.session.user,
+    };
+  });
   return (
     <MainWrapper>
       <HeaderWrapper>
         <HeaderContentWrapper>
           <HeaderTitle>掲示板</HeaderTitle>
           <HeaderLinks>
-            <HeaderLink to="/sign_up">新規登録</HeaderLink>
-            <HeaderLink to="/sign_in">ログイン</HeaderLink>
+            {typeof user === "undefined" ? (
+              <>
+                <HeaderLink to="/sign_up">新規登録</HeaderLink>
+                <HeaderLink to="/sign_in">ログイン</HeaderLink>
+              </>
+            ) : (
+              <HeaderSignOut onClick={() => dispatch(signOut())}>
+                ログアウト
+              </HeaderSignOut>
+            )}
             <HeaderLink to="/counter">カウンター</HeaderLink>
           </HeaderLinks>
         </HeaderContentWrapper>
