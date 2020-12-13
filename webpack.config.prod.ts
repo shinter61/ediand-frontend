@@ -5,9 +5,8 @@ import HTMLWebpackPlugin from 'html-webpack-plugin'
 const Dotenv = require('dotenv-webpack')
 
 const config: webpack.Configuration = {
-  mode: 'development',
+  mode: 'production',
   entry:[
-    'webpack-hot-middleware/client',
     './node_modules/modern-css-reset/dist/reset.css',
     path.resolve(__dirname, 'src/')
   ],
@@ -16,16 +15,13 @@ const config: webpack.Configuration = {
     publicPath: '/',
     filename: 'bundle.js'
   },
-  devServer: {
-    historyApiFallback: true,
-  },
   plugins:[
     new webpack.HotModuleReplacementPlugin(),
     new HTMLWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico',
     }),
-    new Dotenv({ path: './src/config/.env.development' })
+    new Dotenv({ path: './src/config/.env.production' })
   ],
   resolve:{
     extensions: ['.js', '.json', '.ts', '.tsx']
