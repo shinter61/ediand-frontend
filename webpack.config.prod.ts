@@ -16,7 +16,6 @@ const config: webpack.Configuration = {
     filename: 'bundle.js'
   },
   plugins:[
-    new webpack.HotModuleReplacementPlugin(),
     new HTMLWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico',
