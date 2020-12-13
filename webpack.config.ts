@@ -2,6 +2,8 @@ import * as webpack from 'webpack';
 import * as path from 'path';
 import HTMLWebpackPlugin from 'html-webpack-plugin'
 
+const Dotenv = require('dotenv-webpack')
+
 const config: webpack.Configuration = {
   mode: 'development',
   entry:[
@@ -23,6 +25,7 @@ const config: webpack.Configuration = {
       template: './public/index.html',
       favicon: './public/favicon.ico',
     }),
+    new Dotenv({ path: './src/config/.env.development' })
   ],
   resolve:{
     extensions: ['.js', '.json', '.ts', '.tsx']
