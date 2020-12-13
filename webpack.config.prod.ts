@@ -5,7 +5,7 @@ import HTMLWebpackPlugin from 'html-webpack-plugin'
 const Dotenv = require('dotenv-webpack')
 
 const config: webpack.Configuration = {
-  mode: 'development',
+  mode: 'production',
   entry:[
     './node_modules/modern-css-reset/dist/reset.css',
     path.resolve(__dirname, 'src/')
