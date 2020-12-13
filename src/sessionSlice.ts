@@ -47,7 +47,7 @@ export const signUp = createAsyncThunk<
   { user: User },
   { email: string; password: string },
   { rejectValue: { message: string } }
->("session/signIn", async (arg, thunk) => {
+>("session/signUp", async (arg, thunk) => {
   try {
     const { email, password } = arg;
     const res = await client.post("/v1/auth", { email, password });
@@ -66,6 +66,12 @@ const sessionSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
+      state.user = action.payload.user;
+    });
+    builder.addCase(signUp.fulfilled, (state, action) => {
+      state.user = action.payload.user;
+    });
+    builder.addCase(signIn.fulfilled, (state, action) => {
       state.user = action.payload.user;
     });
   },
