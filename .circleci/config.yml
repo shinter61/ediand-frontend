@@ -13,6 +13,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Check webpack
+          command: cat webpack.config.prod.ts
+      - run:
           name: Install and build
           command: |
             yarn
