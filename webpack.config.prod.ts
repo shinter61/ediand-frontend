@@ -7,7 +7,6 @@ const Dotenv = require('dotenv-webpack')
 const config: webpack.Configuration = {
   mode: 'development',
   entry:[
-    'webpack-hot-middleware/client',
     './node_modules/modern-css-reset/dist/reset.css',
     path.resolve(__dirname, 'src/')
   ],
@@ -17,7 +16,6 @@ const config: webpack.Configuration = {
     filename: 'bundle.js'
   },
   plugins:[
-    new webpack.HotModuleReplacementPlugin(),
     new HTMLWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico',
