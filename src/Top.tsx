@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { fetchCurrentUser, signOut } from "./sessionSlice";
 import { AppDispatch } from "./App";
 import todaiImage from "../public/todai.jpg";
+import { RootState } from "./reducers";
 
 const MainWrapper = styled.div`
   width: 100%;
@@ -104,7 +105,7 @@ const Top: React.FC = () => {
     dispatch(fetchCurrentUser());
   }, []);
 
-  const { user } = useSelector((state: any) => {
+  const { user } = useSelector((state: RootState) => {
     return {
       user: state.session.user,
     };

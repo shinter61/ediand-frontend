@@ -2,8 +2,9 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { increment, decrement } from "./counterSlice";
+import { RootState } from "./reducers";
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   count: state.counter,
 });
 
