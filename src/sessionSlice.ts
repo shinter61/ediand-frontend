@@ -38,6 +38,17 @@ const sessionSlice = createSlice({
         jsCookie.set("client", res.headers.client);
       });
     },
+    signIn(_state, action) {
+      const { email, password } = action.payload;
+      client
+        .post("/v1/auth/sign_in", { email, password })
+        .then((res) => {
+          jsCookie.set("uid", res.headers.uid);
+          jsCookie.set("accessToken", res.headers["access-token"]);
+          jsCookie.set("client", res.headers.client);
+        })
+        .catch((err) => console.log(err));
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
@@ -46,5 +57,5 @@ const sessionSlice = createSlice({
   },
 });
 
-export const { signUp } = sessionSlice.actions;
+export const { signUp, signIn } = sessionSlice.actions;
 export default sessionSlice.reducer;
