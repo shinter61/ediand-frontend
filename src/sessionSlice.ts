@@ -26,30 +26,44 @@ export const fetchCurrentUser = createAsyncThunk<
   }
 });
 
+export const signIn = createAsyncThunk<
+  { user: User },
+  { email: string; password: string },
+  { rejectValue: { message: string } }
+>("session/signIn", async (arg, thunk) => {
+  try {
+    const { email, password } = arg;
+    const res = await client.post("/v1/auth/sign_in", { email, password });
+    jsCookie.set("uid", res.headers.uid);
+    jsCookie.set("accessToken", res.headers["access-token"]);
+    jsCookie.set("client", res.headers.client);
+    return { user: res.data.data };
+  } catch (e) {
+    return thunk.rejectWithValue({ message: "ログイン失敗" });
+  }
+});
+
+export const signUp = createAsyncThunk<
+  { user: User },
+  { email: string; password: string },
+  { rejectValue: { message: string } }
+>("session/signIn", async (arg, thunk) => {
+  try {
+    const { email, password } = arg;
+    const res = await client.post("/v1/auth", { email, password });
+    jsCookie.set("uid", res.headers.uid);
+    jsCookie.set("accessToken", res.headers["access-token"]);
+    jsCookie.set("client", res.headers.client);
+    return { user: res.data.data };
+  } catch (e) {
+    return thunk.rejectWithValue({ message: "新規登録失敗" });
+  }
+});
+
 const sessionSlice = createSlice({
   name: "session",
   initialState: {} as SessionState,
-  reducers: {
-    signUp(_state, action) {
-      const { email, password } = action.payload;
-      client.post("/v1/auth", { email, password }).then((res) => {
-        jsCookie.set("uid", res.headers.uid);
-        jsCookie.set("accessToken", res.headers["access-token"]);
-        jsCookie.set("client", res.headers.client);
-      });
-    },
-    signIn(_state, action) {
-      const { email, password } = action.payload;
-      client
-        .post("/v1/auth/sign_in", { email, password })
-        .then((res) => {
-          jsCookie.set("uid", res.headers.uid);
-          jsCookie.set("accessToken", res.headers["access-token"]);
-          jsCookie.set("client", res.headers.client);
-        })
-        .catch((err) => console.log(err));
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
       state.user = action.payload.user;
@@ -57,5 +71,4 @@ const sessionSlice = createSlice({
   },
 });
 
-export const { signUp, signIn } = sessionSlice.actions;
 export default sessionSlice.reducer;

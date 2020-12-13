@@ -1,8 +1,10 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { signIn } from "./sessionSlice";
+import { AppDispatch } from "./App";
 
 const SignInWrapper = styled.div`
   display: flex;
@@ -43,17 +45,13 @@ const FormSubmitButton = styled.button`
   border: 1px solid: #ff1a6f;
 `;
 
-interface signInParams {
-  email: string;
-  password: string;
-}
-type SignInProps = {
-  signIn: (params: signInParams) => void;
-};
-
-const SignIn: React.FC<SignInProps> = ({ signIn }) => {
+const SignIn: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const history = useHistory();
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -61,10 +59,13 @@ const SignIn: React.FC<SignInProps> = ({ signIn }) => {
     else if (name === "password") setPassword(value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    signIn({ email, password });
+    const res = await dispatch(signIn({ email, password }));
+    if (signIn.fulfilled.match(res)) {
+      history.push("/counter");
+    }
   };
   return (
     <SignInWrapper>
@@ -101,8 +102,4 @@ const SignIn: React.FC<SignInProps> = ({ signIn }) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({});
-
-const mapDispatchToProps = { signIn };
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;

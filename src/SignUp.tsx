@@ -1,8 +1,10 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { signUp } from "./sessionSlice";
+import { AppDispatch } from "./App";
 
 const SignUpWrapper = styled.div`
   display: flex;
@@ -43,18 +45,14 @@ const FormSubmitButton = styled.button`
   border: 1px solid: #ff1a6f;
 `;
 
-interface signUpParams {
-  email: string;
-  password: string;
-}
-type SignUpProps = {
-  signUp: (params: signUpParams) => void;
-};
-
-const SignUp: React.FC<SignUpProps> = ({ signUp }) => {
+const SignUp: React.FC = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [rePassword, setRePassword] = React.useState("");
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const history = useHistory();
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -66,14 +64,17 @@ const SignUp: React.FC<SignUpProps> = ({ signUp }) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== rePassword) {
       return;
     }
 
-    signUp({ email, password });
+    const res = await dispatch(signUp({ email, password }));
+    if (signUp.fulfilled.match(res)) {
+      history.push("/counter");
+    }
   };
   return (
     <SignUpWrapper>
@@ -123,8 +124,4 @@ const SignUp: React.FC<SignUpProps> = ({ signUp }) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({});
-
-const mapDispatchToProps = { signUp };
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
+export default SignUp;
