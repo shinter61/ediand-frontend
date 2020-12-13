@@ -1,6 +1,12 @@
 import { combineReducers } from "redux";
 import counterReducer from "../counterSlice";
+import sessionReducer from "../sessionSlice";
 
-export default combineReducers({
+const rootReducer = combineReducers({
   counter: counterReducer,
+  session: sessionReducer,
 });
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+export default rootReducer;

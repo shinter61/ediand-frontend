@@ -1,12 +1,16 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import client from "./client";
+import { signUp } from "./sessionSlice";
+import { AppDispatch } from "./App";
 
 const SignUpWrapper = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
+  margin-top: 72px;
 `;
 const SignUpContentWrapper = styled.div`
   width: 25%;
@@ -42,9 +46,13 @@ const FormSubmitButton = styled.button`
 `;
 
 const SignUp: React.FC = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [rePassword, setRePassword] = React.useState("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [rePassword, setRePassword] = React.useState<string>("");
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const history = useHistory();
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,16 +64,17 @@ const SignUp: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password !== rePassword) {
       return;
     }
 
-    client
-      .post("/v1/auth", { email, password })
-      .then((res) => console.log(res));
+    const res = await dispatch(signUp({ email, password }));
+    if (signUp.fulfilled.match(res)) {
+      history.push("/counter");
+    }
   };
   return (
     <SignUpWrapper>
