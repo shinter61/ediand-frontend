@@ -25,7 +25,7 @@ const config: webpack.Configuration = {
       template: './public/index.html',
       favicon: './public/favicon.ico',
     }),
-    new Dotenv({ path: './src/config/.env.development' })
+    new Dotenv({ path: path.resolve(__dirname, './.env.production') })
   ],
   resolve:{
     extensions: ['.js', '.json', '.ts', '.tsx']
