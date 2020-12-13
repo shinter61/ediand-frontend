@@ -1,7 +1,7 @@
 import express from 'express';
 import * as fs from 'fs';
 import webpack from 'webpack';
-import webpackConfig from '../webpack.config';
+import webpackConfig from '../webpack.config.dev';
 import webpackMiddleware from 'webpack-dev-middleware';
 import HMR from 'webpack-hot-middleware';
 import path from 'path';

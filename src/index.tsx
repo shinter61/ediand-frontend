@@ -7,7 +7,7 @@ const render = (_App: React.FC) => {
   ReactDOM.render(<_App />, document.getElementById("root"));
 };
 
-if (module.hot) {
+if (process.env.NODE_ENV === "development" && module.hot) {
   module.hot.accept("./App", () => {
     const NextApp = require("./App").default;
     render(NextApp);

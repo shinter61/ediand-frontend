@@ -16,12 +16,11 @@ const config: webpack.Configuration = {
     filename: 'bundle.js'
   },
   plugins:[
-    new webpack.HotModuleReplacementPlugin(),
     new HTMLWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico',
     }),
-    new Dotenv({ path: './src/config/.env.production' })
+    new Dotenv({ path: path.resolve(__dirname, './.env.production') })
   ],
   resolve:{
     extensions: ['.js', '.json', '.ts', '.tsx']
