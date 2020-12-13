@@ -46,9 +46,9 @@ const FormSubmitButton = styled.button`
 `;
 
 const SignUp: React.FC = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [rePassword, setRePassword] = React.useState("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const [rePassword, setRePassword] = React.useState<string>("");
 
   const dispatch: AppDispatch = useDispatch();
 
