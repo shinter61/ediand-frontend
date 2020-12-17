@@ -67,7 +67,7 @@ export const signUp = createAsyncThunk<
     const res = await client.post(
       "/v1/auth",
       { email, password },
-      { headers: getHeaders }
+      { headers: getHeaders() }
     );
     jsCookie.set("uid", res.headers.uid);
     jsCookie.set("accessToken", res.headers["access-token"]);
